@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paper Trading Simulator | Virtual Crypto Trading Challenges</title>
+  <meta name="description" content="Practice crypto trading with virtual balances, challenge goals, paper portfolio tracking, and local history using the CryptoAI simulator.">
+  <meta name="keywords" content="paper trading crypto, crypto simulator, virtual trading challenge, learn crypto trading">
+  <meta name="theme-color" content="#070b16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="paper-trading">
+  <div class="site-shell">
+    <div class="background-grid"></div>
+    <div class="background-orb background-orb-left"></div>
+    <div class="background-orb background-orb-right"></div>
+    <div id="trustModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="trustModalTitle">
+      <div class="modal-card">
+        <p class="eyebrow">Important Notice</p>
+        <h2 id="trustModalTitle">Risk Notice &amp; Terms</h2>
+        <ul class="modal-list">
+          <li>Crypto markets are risky.</li>
+          <li>Losses may occur.</li>
+          <li>No guaranteed profits.</li>
+          <li>Information only.</li>
+          <li>Users are responsible for decisions.</li>
+        </ul>
+        <div class="modal-actions">
+          <button id="acceptRiskButton" class="button button-primary" type="button">Accept &amp; Continue</button>
+          <button id="exitRiskButton" class="button button-secondary" type="button">Exit</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Primary">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>
+            <strong class="brand-name">CryptoAI V2</strong>
+            <span class="brand-tagline">Prices, tools, watchlists, and daily signals</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="risk-management.html">Risk Center</a>
+          <a href="ai-trading.html">AI Assistant</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="calculator-page-shell">
+      <section class="container">
+        <article class="glass-card page-hero">
+          <p class="eyebrow">Paper Trading Simulator</p>
+          <h1>Practice first with virtual capital</h1>
+          <p>Trade crypto using simulated balance, track your paper portfolio, and take realistic goal challenges before risking real money.</p>
+        </article>
+      </section>
+
+      <section class="container">
+        <div class="disclaimer-banner">
+          Educational tools only. Not financial advice. No guaranteed returns. User responsible for decisions.
+        </div>
+      </section>
+
+      <section class="container">
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Virtual Balance Selector</h2>
+          <div class="pill-row">
+            <button class="select-pill" type="button" data-balance-select="100">₹100</button>
+            <button class="select-pill" type="button" data-balance-select="500">₹500</button>
+            <button class="select-pill" type="button" data-balance-select="1000">₹1000</button>
+            <input id="customBalanceInput" type="number" min="0" step="any" placeholder="Custom amount">
+            <button id="customBalanceButton" class="button button-secondary" type="button">Set Custom</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="container balance-strip">
+        <article class="glass-card stat-card">
+          <span>Cash Balance</span>
+          <strong id="paperBalanceValue">₹0.00</strong>
+        </article>
+        <article class="glass-card stat-card">
+          <span>Total Equity</span>
+          <strong id="paperEquityValue">₹0.00</strong>
+        </article>
+        <article class="glass-card stat-card">
+          <span>Total P/L</span>
+          <strong id="paperPnlValue">₹0.00</strong>
+        </article>
+      </section>
+
+      <section class="container two-column">
+        <article class="glass-card calculator-card">
+          <h2 class="section-card-title">Simulated Buy / Sell Interface</h2>
+          <div class="pill-row" style="margin-bottom: 1rem;">
+            <button class="select-pill active" type="button" data-category="crypto">Crypto</button>
+            <button class="select-pill" type="button" data-category="stocks">Stocks</button>
+            <button class="select-pill" type="button" data-category="etf">ETF</button>
+          </div>
+          <p id="assetCategoryNote" class="asset-note">Live crypto market data is active using the current CoinGecko integration.</p>
+          <form class="calculator-form" onsubmit="return false;">
+            <label>Select Asset
+              <select id="paperAssetSelect"></select>
+            </label>
+            <label>Quantity
+              <input id="paperQuantity" type="number" min="0" step="any" placeholder="0.25">
+            </label>
+            <div class="hero-actions">
+              <button id="paperBuyButton" class="button button-primary" type="button">Buy</button>
+              <button id="paperSellButton" class="button button-secondary" type="button">Sell</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="glass-card calculator-card" id="challenge">
+          <h2 class="section-card-title">Trading Challenge Mode</h2>
+          <div class="challenge-list">
+            <button class="challenge-item select-pill active" type="button" data-challenge data-challenge-name="Turn ₹100 into ₹1000" data-challenge-start="100" data-challenge-target="1000" data-challenge-days="7">
+              Turn ₹100 into ₹1000
+            </button>
+            <button class="challenge-item select-pill" type="button" data-challenge data-challenge-name="Turn ₹1000 into ₹10,000" data-challenge-start="1000" data-challenge-target="10000" data-challenge-days="30">
+              Turn ₹1000 into ₹10,000
+            </button>
+            <button class="challenge-item select-pill" type="button" data-challenge data-challenge-name="7 Day Discipline Challenge" data-challenge-start="500" data-challenge-target="800" data-challenge-days="7">
+              7 day challenge
+            </button>
+            <button class="challenge-item select-pill" type="button" data-challenge data-challenge-name="30 Day Process Challenge" data-challenge-start="1000" data-challenge-target="1500" data-challenge-days="30">
+              30 day challenge
+            </button>
+          </div>
+          <div id="challengeProgress" class="challenge-list" style="margin-top: 1rem;">
+            <div class="challenge-item">No active challenge selected.</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="container two-column">
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Open Positions</h2>
+          <div id="paperPositions" class="history-list">
+            <div class="history-item">No open positions yet.</div>
+          </div>
+        </article>
+
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Trade History</h2>
+          <div id="paperHistory" class="history-list">
+            <div class="history-item">No trades executed yet.</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="container two-column">
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Local Leaderboard</h2>
+          <div id="leaderboardList" class="leaderboard-list">
+            <div class="leaderboard-item">No completed challenges yet.</div>
+          </div>
+        </article>
+
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Recent Viewed Assets</h2>
+          <div id="recentAssetsList" class="token-list">
+            <span class="empty-inline">No recent assets viewed yet.</span>
+          </div>
+          <div class="link-list" style="margin-top: 1rem;">
+            <a href="risk-management.html">Open Risk Management Center</a>
+            <a href="ai-trading.html">Open AI Trading Assistant</a>
+            <a id="lastViewedLink" href="index.html#portfolio">View last viewed homepage coin</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <strong>CryptoAI V2</strong>
+          <p>Live crypto prices, sentiment, trading education, calculators, and simulator tools.</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Homepage</a>
+          <a href="risk-management.html">Risk Management</a>
+          <a href="ai-trading.html">AI Trading Assistant</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="advanced-growth.js" defer></script>
+</body>
+</html>

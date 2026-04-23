@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Profit Calculator | Profit, Loss, ROI in USD & INR</title>
+  <meta name="description" content="Use the CryptoAI profit calculator to estimate crypto profit, loss, ROI, and final value in both USD and INR.">
+  <meta name="keywords" content="crypto profit calculator, bitcoin profit calculator, crypto ROI calculator, INR crypto calculator">
+  <meta name="theme-color" content="#070b16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="profit-calculator">
+  <div class="site-shell">
+    <div class="background-grid"></div>
+    <div class="background-orb background-orb-left"></div>
+    <div class="background-orb background-orb-right"></div>
+
+    <div id="trustModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="trustModalTitle">
+      <div class="modal-card">
+        <p class="eyebrow">Important Notice</p>
+        <h2 id="trustModalTitle">Risk Notice &amp; Terms</h2>
+        <ul class="modal-list">
+          <li>Crypto markets are risky.</li>
+          <li>Losses may occur.</li>
+          <li>No guaranteed profits.</li>
+          <li>Information only.</li>
+          <li>Users are responsible for decisions.</li>
+        </ul>
+        <div class="modal-actions">
+          <button id="acceptRiskButton" class="button button-primary" type="button">Accept &amp; Continue</button>
+          <button id="exitRiskButton" class="button button-secondary" type="button">Exit</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Primary">
+        <a class="brand" href="index.html" aria-label="CryptoAI home">
+          <span class="brand-mark"></span>
+          <span>
+            <strong class="brand-name">CryptoAI V2</strong>
+            <span class="brand-tagline">Prices, tools, watchlists, and daily signals</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html#market">Prices</a>
+          <a href="index.html#tools">Tools</a>
+          <a href="index.html#news">News</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="calculator-page-shell">
+      <section class="container">
+        <article class="glass-card page-hero">
+          <p class="eyebrow">Profit Calculator</p>
+          <h1>Crypto profit calculator for USD and INR</h1>
+          <p>Calculate crypto profit, final value, and ROI using buy price, sell price, and either investment amount or quantity.</p>
+        </article>
+      </section>
+
+      <section class="container tool-page-grid">
+        <article class="glass-card calculator-card">
+          <form id="toolForm" class="calculator-form">
+            <label>Buy Price
+              <input name="buyPrice" type="number" min="0" step="any" placeholder="25000" required>
+            </label>
+            <label>Sell Price
+              <input name="sellPrice" type="number" min="0" step="any" placeholder="32000" required>
+            </label>
+            <label>Investment Amount
+              <input name="investmentAmount" type="number" min="0" step="any" placeholder="1000">
+            </label>
+            <label>Quantity (Optional)
+              <input name="quantity" type="number" min="0" step="any" placeholder="0.25">
+            </label>
+            <button class="button button-primary" type="submit">Calculate Profit</button>
+          </form>
+        </article>
+
+        <aside class="glass-card tool-side-card">
+          <div class="result-panel">
+            <div class="result-box"><span>Profit / Loss</span><strong id="profitLossValue">$0.00</strong></div>
+            <div class="result-box"><span>ROI %</span><strong id="profitRoiValue">0.00%</strong></div>
+            <div class="result-box"><span>Final Value (USD)</span><strong id="profitUsdValue">$0.00</strong></div>
+            <div class="result-box"><span>Final Value (INR)</span><strong id="profitInrValue">₹0.00</strong></div>
+          </div>
+          <div class="link-list">
+            <a href="sip-calculator.html">Open SIP Calculator</a>
+            <a href="converter.html">Open Converter</a>
+            <a href="index.html">Back to Homepage</a>
+            <a id="lastViewedLink" href="index.html#portfolio">View last viewed coin</a>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <strong>CryptoAI V2</strong>
+          <p>Live crypto prices, sentiment, trending coins, calculators, and portfolio tools.</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Homepage</a>
+          <a href="converter.html">Converter</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="tool-pages.js" defer></script>
+</body>
+</html>

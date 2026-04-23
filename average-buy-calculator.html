@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Average Buy Calculator | Weighted Average Crypto Buy Price</title>
+  <meta name="description" content="Calculate weighted average crypto buy price across multiple entries with the CryptoAI average buy calculator.">
+  <meta name="keywords" content="average buy calculator crypto, weighted average crypto price, crypto dca calculator">
+  <meta name="theme-color" content="#070b16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="average-buy-calculator">
+  <div class="site-shell">
+    <div class="background-grid"></div>
+    <div class="background-orb background-orb-left"></div>
+    <div class="background-orb background-orb-right"></div>
+
+    <div id="trustModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="trustModalTitle">
+      <div class="modal-card">
+        <p class="eyebrow">Important Notice</p>
+        <h2 id="trustModalTitle">Risk Notice &amp; Terms</h2>
+        <ul class="modal-list">
+          <li>Crypto markets are risky.</li>
+          <li>Losses may occur.</li>
+          <li>No guaranteed profits.</li>
+          <li>Information only.</li>
+          <li>Users are responsible for decisions.</li>
+        </ul>
+        <div class="modal-actions">
+          <button id="acceptRiskButton" class="button button-primary" type="button">Accept &amp; Continue</button>
+          <button id="exitRiskButton" class="button button-secondary" type="button">Exit</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Primary">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>
+            <strong class="brand-name">CryptoAI V2</strong>
+            <span class="brand-tagline">Prices, tools, watchlists, and daily signals</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html#market">Prices</a>
+          <a href="index.html#tools">Tools</a>
+          <a href="index.html#news">News</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="calculator-page-shell">
+      <section class="container">
+        <article class="glass-card page-hero">
+          <p class="eyebrow">Average Buy Calculator</p>
+          <h1>Track your weighted average crypto entry</h1>
+          <p>Add multiple buys with quantity and price to calculate your weighted average buy price, total quantity, and total cost.</p>
+        </article>
+      </section>
+
+      <section class="container tool-page-grid">
+        <article class="glass-card calculator-card">
+          <form id="toolForm" class="calculator-form">
+            <div id="entriesWrap"></div>
+            <button id="addEntryButton" class="button button-secondary" type="button">Add Another Entry</button>
+            <button class="button button-primary" type="submit">Calculate Average Buy</button>
+          </form>
+        </article>
+
+        <aside class="glass-card tool-side-card">
+          <div class="result-panel">
+            <div class="result-box"><span>Average Buy Price</span><strong id="averageBuyPriceValue">$0.00</strong></div>
+            <div class="result-box"><span>Total Quantity</span><strong id="averageQuantityValue">0</strong></div>
+            <div class="result-box"><span>Total Cost</span><strong id="averageCostValue">$0.00</strong></div>
+          </div>
+          <div class="link-list">
+            <a href="profit-calculator.html">Open Profit Calculator</a>
+            <a href="roi-calculator.html">Open ROI Calculator</a>
+            <a href="index.html">Back to Homepage</a>
+            <a id="lastViewedLink" href="index.html#portfolio">View last viewed coin</a>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <strong>CryptoAI V2</strong>
+          <p>Live crypto prices, sentiment, trending coins, calculators, and portfolio tools.</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Homepage</a>
+          <a href="converter.html">Converter</a>
+          <a href="sip-calculator.html">SIP Calculator</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="tool-pages.js" defer></script>
+</body>
+</html>

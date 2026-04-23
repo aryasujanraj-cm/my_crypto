@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Trading Assistant | Rules-Based Strategy Planner and Market Scan</title>
+  <meta name="description" content="Use the CryptoAI rules-based trading assistant for educational strategy planning, market scans, and sample trade structures with visible risk warnings.">
+  <meta name="keywords" content="ai trading assistant, crypto strategy planner, crypto market scan, educational trading assistant">
+  <meta name="theme-color" content="#070b16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="ai-trading">
+  <div class="site-shell">
+    <div class="background-grid"></div>
+    <div class="background-orb background-orb-left"></div>
+    <div class="background-orb background-orb-right"></div>
+    <div id="trustModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="trustModalTitle">
+      <div class="modal-card">
+        <p class="eyebrow">Important Notice</p>
+        <h2 id="trustModalTitle">Risk Notice &amp; Terms</h2>
+        <ul class="modal-list">
+          <li>Crypto markets are risky.</li>
+          <li>Losses may occur.</li>
+          <li>No guaranteed profits.</li>
+          <li>Information only.</li>
+          <li>Users are responsible for decisions.</li>
+        </ul>
+        <div class="modal-actions">
+          <button id="acceptRiskButton" class="button button-primary" type="button">Accept &amp; Continue</button>
+          <button id="exitRiskButton" class="button button-secondary" type="button">Exit</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Primary">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>
+            <strong class="brand-name">CryptoAI V2</strong>
+            <span class="brand-tagline">Prices, tools, watchlists, and daily signals</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="risk-management.html">Risk Center</a>
+          <a href="paper-trading.html">Simulator</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="calculator-page-shell">
+      <section class="container">
+        <article class="glass-card page-hero">
+          <p class="eyebrow">AI Trading Assistant</p>
+          <h1>Rules-based planning, not magic profits</h1>
+          <p>Use structured educational paths, current market scans, and example trade planning to think more clearly about risk and process.</p>
+        </article>
+      </section>
+
+      <section class="container">
+        <div class="disclaimer-banner">
+          Educational tools only. Not financial advice. No guaranteed returns. User responsible for decisions.
+        </div>
+      </section>
+
+      <section class="container two-column">
+        <article class="glass-card calculator-card">
+          <h2 class="section-card-title">AI Strategy Planner</h2>
+          <form id="assistantForm" class="calculator-form">
+            <label>Capital
+              <input id="assistantCapital" data-assistant-input type="number" min="0" step="any" placeholder="1000">
+            </label>
+            <label>Target Amount
+              <input id="assistantTarget" data-assistant-input type="number" min="0" step="any" placeholder="2500">
+            </label>
+            <label>Timeframe (Months)
+              <input id="assistantTimeframe" data-assistant-input type="number" min="0" step="any" placeholder="6">
+            </label>
+            <label>Max Risk %
+              <input id="assistantRisk" data-assistant-input type="number" min="0" step="any" placeholder="2">
+            </label>
+            <label>Preferred Assets
+              <input id="assistantAssets" data-assistant-input type="text" placeholder="bitcoin, solana, eth">
+            </label>
+            <button class="button button-primary" type="submit">Generate Plan</button>
+          </form>
+        </article>
+
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Risk Warnings</h2>
+          <ul class="muted-list">
+            <li>No guaranteed profits.</li>
+            <li>Markets can move sharply against any plan.</li>
+            <li>Smaller accounts are especially vulnerable to fees and slippage.</li>
+            <li>Use this page for structure and education, not certainty.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="container">
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Strategy Paths</h2>
+          <div id="assistantPaths" class="assistant-paths">
+            <article class="assistant-path">Waiting for planner inputs...</article>
+          </div>
+        </article>
+      </section>
+
+      <section class="container two-column">
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Market Scan Assistant</h2>
+          <div class="scan-list">
+            <div>
+              <strong>Trending Movers</strong>
+              <div id="scanTrending" class="scan-list"><div class="scan-item">Loading trending assets...</div></div>
+            </div>
+            <div>
+              <strong>Volatility Opportunities</strong>
+              <div id="scanVolatility" class="scan-list"><div class="scan-item">Loading volatility scan...</div></div>
+            </div>
+            <div>
+              <strong>Strong Momentum Assets</strong>
+              <div id="scanMomentum" class="scan-list"><div class="scan-item">Loading momentum scan...</div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Suggested Trade Plan Example</h2>
+          <div id="suggestedTradePlan" class="assistant-paths">
+            <article class="assistant-path">Waiting for current market data...</article>
+          </div>
+        </article>
+      </section>
+
+      <section class="container">
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Recent Viewed Assets</h2>
+          <div id="recentAssetsList" class="token-list">
+            <span class="empty-inline">No recent assets viewed yet.</span>
+          </div>
+          <div class="link-list" style="margin-top: 1rem;">
+            <a href="paper-trading.html">Open Paper Trading Simulator</a>
+            <a href="risk-management.html">Open Risk Management Center</a>
+            <a id="lastViewedLink" href="index.html#portfolio">View last viewed homepage coin</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <strong>CryptoAI V2</strong>
+          <p>Live crypto prices, sentiment, trading education, calculators, and simulator tools.</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Homepage</a>
+          <a href="risk-management.html">Risk Management</a>
+          <a href="paper-trading.html">Paper Trading</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="advanced-growth.js" defer></script>
+</body>
+</html>

@@ -3,252 +3,539 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CryptoAI Dashboard</title>
+  <title>CryptoAI V2 | Live Crypto Prices, Trending Coins, INR Tools & News</title>
+  <meta
+    name="description"
+    content="Track live crypto prices, trending coins, fear and greed sentiment, INR values, portfolio performance, and smart crypto calculators with a fast premium dashboard."
+  >
+  <meta
+    name="keywords"
+    content="crypto dashboard, live crypto prices, trending crypto coins, crypto fear and greed, INR crypto prices, bitcoin tools, ethereum calculator, crypto news"
+  >
+  <meta name="theme-color" content="#070b16">
+  <meta property="og:title" content="CryptoAI V2 | Live Crypto Prices, Trending Coins, INR Tools & News">
+  <meta
+    property="og:description"
+    content="A premium crypto tools platform with live market data, trending coins, sentiment, portfolio tracking, news, and calculator pages."
+  >
+  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CryptoAI V2",
+      "url": "https://example.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://example.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
 </head>
-<body>
-  <div class="background-grid"></div>
-  <div class="background-glow background-glow-left"></div>
-  <div class="background-glow background-glow-right"></div>
-  <aside id="notificationsPanel" class="notifications-panel" aria-live="polite" aria-atomic="true"></aside>
+<body data-page="home">
+  <div class="site-shell">
+    <div class="background-grid"></div>
+    <div class="background-orb background-orb-left"></div>
+    <div class="background-orb background-orb-right"></div>
 
-  <nav class="navbar">
-    <div class="navbar-inner">
-      <div class="brand">
-        <span class="brand-mark"></span>
-        <div>
-          <span class="brand-name">CryptoAI</span>
-          <p class="brand-tagline">Smart crypto market intelligence</p>
+    <div id="trustModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="trustModalTitle">
+      <div class="modal-card">
+        <p class="eyebrow">Important Notice</p>
+        <h2 id="trustModalTitle">Risk Notice &amp; Terms</h2>
+        <ul class="modal-list">
+          <li>Crypto markets are risky.</li>
+          <li>Losses may occur.</li>
+          <li>No guaranteed profits.</li>
+          <li>Information only.</li>
+          <li>Users are responsible for decisions.</li>
+        </ul>
+        <div class="modal-actions">
+          <button id="acceptRiskButton" class="button button-primary" type="button">Accept &amp; Continue</button>
+          <button id="exitRiskButton" class="button button-secondary" type="button">Exit</button>
         </div>
-      </div>
-      <div class="nav-status">
-        <span id="statusBadge" class="status-badge">Loading...</span>
-        <span id="lastUpdated" class="last-updated">Last updated: --</span>
       </div>
     </div>
-  </nav>
 
-  <main class="app-shell">
-    <section class="hero">
-      <div class="hero-copy-wrap">
-        <p class="eyebrow">Professional Trading Dashboard</p>
-        <h1>Track market momentum, signals, charts, and your live crypto portfolio.</h1>
-        <p class="hero-copy">
-          Monitor the top 50 cryptocurrencies in a single dark-mode workspace designed for quick scanning and confident decisions.
-        </p>
-      </div>
-      <div class="hero-metrics">
-        <article class="metric-card">
-          <span class="metric-label">Assets Tracked</span>
-          <strong class="metric-value">50</strong>
-        </article>
-        <article class="metric-card">
-          <span class="metric-label">Refresh Cycle</span>
-          <strong class="metric-value">20s</strong>
-        </article>
-        <article class="metric-card">
-          <span class="metric-label">Portfolio Sync</span>
-          <strong class="metric-value">Live</strong>
-        </article>
-      </div>
-    </section>
+    <aside id="notificationsPanel" class="notifications-panel" aria-live="polite" aria-atomic="true"></aside>
 
-    <section class="dashboard-card recommendation-panel">
-      <div class="card-header recommendation-header">
-        <div>
-          <p class="eyebrow">AI Recommendations</p>
-          <h2>Find the best coin for your next move</h2>
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Primary">
+        <a class="brand" href="index.html" aria-label="CryptoAI home">
+          <span class="brand-mark"></span>
+          <span>
+            <strong class="brand-name">CryptoAI V2</strong>
+            <span class="brand-tagline">Prices, tools, watchlists, and daily signals</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="#market">Prices</a>
+          <a href="#tools">Tools</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#news">News</a>
         </div>
-        <div class="recommendation-controls">
-          <label class="sr-only" for="investmentInput">Enter investment amount</label>
-          <input id="investmentInput" type="text" inputmode="decimal" placeholder="Enter investment amount (₹, $, €, £, ¥)">
-          <button id="recommendButton" class="recommendation-button" type="button">Find Best Coin</button>
+        <div class="nav-meta">
+          <span id="statusBadge" class="status-badge">Loading...</span>
+          <span id="lastUpdated" class="last-updated">Last updated: --</span>
         </div>
-      </div>
-      <div class="recommendation-grid">
-        <article class="best-recommendation">
-          <span class="recommendation-kicker">Top Pick</span>
-          <h3 id="bestCoinName">Waiting for live market scan</h3>
-          <p id="bestCoinReason" class="recommendation-copy">
-            Enter an amount and run the scanner to identify the strongest opportunity from the current market data.
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero-section container">
+        <div class="hero-copy glass-card">
+          <p class="eyebrow">Daily crypto market intelligence</p>
+          <h1>Live Crypto Prices, Smart Tools &amp; Daily Market Updates</h1>
+          <p class="hero-text">
+            Track coins, calculate profits, convert INR, monitor sentiment, and discover trending opportunities with a premium crypto dashboard built for repeat visits and fast decisions.
           </p>
-          <div class="recommendation-stats">
-            <div class="recommendation-stat">
-              <span>Confidence</span>
-              <strong id="bestCoinConfidence">--</strong>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#market">Explore Prices</a>
+            <a class="button button-secondary" href="#tools">Use Tools</a>
+          </div>
+          <div class="hero-highlights">
+            <article class="highlight-chip">
+              <span class="highlight-value" id="heroCoinsTracked">--</span>
+              <span class="highlight-label">Coins tracked</span>
+            </article>
+            <article class="highlight-chip">
+              <span class="highlight-value" id="heroTrendingCount">--</span>
+              <span class="highlight-label">Trending now</span>
+            </article>
+            <article class="highlight-chip">
+              <span class="highlight-value" id="heroRefreshCycle">60s</span>
+              <span class="highlight-label">Refresh cycle</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="hero-aside">
+          <article class="glass-card market-pulse-card">
+            <div class="section-head compact-head">
+              <div>
+                <p class="eyebrow">Market pulse</p>
+                <h2>Today at a glance</h2>
+              </div>
             </div>
-            <div class="recommendation-stat">
-              <span>Suggested Allocation</span>
-              <strong id="bestCoinAllocation">--</strong>
+            <div class="pulse-grid">
+              <div class="pulse-stat">
+                <span>Total market cap</span>
+                <strong id="marketCapTotal">--</strong>
+              </div>
+              <div class="pulse-stat">
+                <span>24h volume</span>
+                <strong id="marketVolumeTotal">--</strong>
+              </div>
+              <div class="pulse-stat">
+                <span>Bullish coins</span>
+                <strong id="marketBullishCount">--</strong>
+              </div>
+              <div class="pulse-stat">
+                <span>Watchlist</span>
+                <strong id="watchlistCount">0</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass-card sentiment-card">
+            <div class="section-head compact-head">
+              <div>
+                <p class="eyebrow">Fear &amp; Greed</p>
+                <h2>Sentiment widget</h2>
+              </div>
+            </div>
+            <div class="sentiment-meter">
+              <div class="sentiment-ring">
+                <strong id="sentimentValue">--</strong>
+                <span id="sentimentLabel">Loading sentiment...</span>
+              </div>
+              <p id="sentimentSummary" class="muted-copy">Calculating market sentiment from live crypto momentum.</p>
+            </div>
+          </article>
+
+          <article class="ad-slot ad-top glass-card">
+            <span class="ad-label">Ad slot</span>
+            <strong>Top Banner</strong>
+            <p>Leaderboard placement for exchange, wallet, or newsletter campaigns.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="container">
+        <article class="glass-card search-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Fast Coin Search</p>
+              <h2>Instant search, dropdown matches, recent searches, and last viewed coin</h2>
             </div>
           </div>
-          <p id="recommendationSummary" class="recommendation-summary">No analysis run yet.</p>
-          <div class="affiliate-actions">
-            <a
-              id="recommendAffiliateLink"
-              class="affiliate-button"
-              href="https://invite.coindcx.com/61707419"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Start investing in this coin (Recommended)
+          <div class="search-panel search-panel-stack">
+            <label class="sr-only" for="searchInput">Search any coin</label>
+            <div class="search-dropdown-wrap">
+              <input
+                id="searchInput"
+                class="search-input"
+                type="search"
+                placeholder="Search Bitcoin, Solana, ETH, meme coins, layer 2..."
+                autocomplete="off"
+              >
+              <div id="searchDropdown" class="search-dropdown" hidden></div>
+            </div>
+            <button id="clearSearchButton" class="button button-secondary search-clear" type="button">Clear</button>
+          </div>
+          <div class="retention-row retention-row-three">
+            <div>
+              <span class="retention-title">Recent searches</span>
+              <div id="recentSearches" class="token-list">
+                <span class="empty-inline">No recent searches yet.</span>
+              </div>
+            </div>
+            <div>
+              <span class="retention-title">Watchlist</span>
+              <div id="watchlistChips" class="token-list">
+                <span class="empty-inline">No watchlist coins saved.</span>
+              </div>
+            </div>
+            <div>
+              <span class="retention-title">Last viewed coin</span>
+              <div id="lastViewedCoin" class="token-list">
+                <span class="empty-inline">No coin viewed yet.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="container section-grid section-grid-three">
+        <article class="glass-card">
+          <div class="section-head compact-head">
+            <div>
+              <p class="eyebrow">Trending Coins Today</p>
+              <h2>Live trend board with quick prices</h2>
+            </div>
+          </div>
+          <div id="trendingCoins" class="mini-card-grid">
+            <p class="empty-state">Loading trending coins...</p>
+          </div>
+        </article>
+
+        <article class="glass-card">
+          <div class="section-head compact-head">
+            <div>
+              <p class="eyebrow">Top Gainers</p>
+              <h2>Strongest movers today</h2>
+            </div>
+          </div>
+          <div id="topGainers" class="movers-list">
+            <p class="empty-inline">Loading...</p>
+          </div>
+        </article>
+
+        <article class="glass-card">
+          <div class="section-head compact-head">
+            <div>
+              <p class="eyebrow">Top Losers</p>
+              <h2>Largest pullbacks today</h2>
+            </div>
+          </div>
+          <div id="topLosers" class="movers-list">
+            <p class="empty-inline">Loading...</p>
+          </div>
+        </article>
+      </section>
+
+      <section id="market" class="container market-section">
+        <article class="glass-card">
+          <div class="section-head market-head">
+            <div>
+              <p class="eyebrow">Live Crypto Market Table</p>
+              <h2>Top market movers, prices, INR values, and quick actions</h2>
+            </div>
+            <div class="market-actions">
+              <button id="marketTabAll" class="filter-chip active" type="button">All Coins</button>
+              <button id="marketTabWatchlist" class="filter-chip" type="button">Watchlist</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Coin</th>
+                  <th>Price</th>
+                  <th>INR</th>
+                  <th>24h</th>
+                  <th>Market Cap</th>
+                  <th>Signal</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="cryptoTableBody" class="loading-table">
+                <tr>
+                  <td colspan="7" class="empty-state">Loading market data...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="container">
+        <article class="glass-card recommendations-panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Daily Signal</p>
+              <h2>Smart coin scanner</h2>
+            </div>
+            <div class="recommendation-controls">
+              <label class="sr-only" for="investmentInput">Enter investment amount</label>
+              <input id="investmentInput" type="text" inputmode="decimal" placeholder="Enter amount like 5000 or ₹5000">
+              <button id="recommendButton" class="button button-primary" type="button">Find Best Coin</button>
+            </div>
+          </div>
+          <div class="recommendation-grid">
+            <article class="recommendation-spotlight">
+              <span class="recommendation-kicker">Best fit now</span>
+              <h3 id="bestCoinName">Waiting for live market scan</h3>
+              <p id="bestCoinReason" class="recommendation-copy">
+                Enter an amount and run the scanner to identify the strongest opportunity from the current market data.
+              </p>
+              <div class="recommendation-stats">
+                <div class="stat-pill">
+                  <span>Confidence</span>
+                  <strong id="bestCoinConfidence">--</strong>
+                </div>
+                <div class="stat-pill">
+                  <span>Suggested Allocation</span>
+                  <strong id="bestCoinAllocation">--</strong>
+                </div>
+              </div>
+              <p id="recommendationSummary" class="muted-copy">No analysis run yet.</p>
+              <a id="recommendAffiliateLink" class="button button-secondary affiliate-button" href="https://invite.coindcx.com/61707419" target="_blank" rel="noopener noreferrer">
+                Start investing in this coin
+              </a>
+            </article>
+            <article class="recommendation-list-card">
+              <div class="top-recommendations-header">
+                <span class="recommendation-kicker">Top 3 Ranked Coins</span>
+                <p id="distributionSuggestion" class="muted-copy">Distribution suggestion will appear here.</p>
+              </div>
+              <div id="topRecommendationsList" class="top-recommendations-list">
+                <p class="empty-state recommendation-empty">No recommendations available yet.</p>
+              </div>
+            </article>
+          </div>
+        </article>
+      </section>
+
+      <section class="container">
+        <article class="ad-slot ad-mid glass-card">
+          <span class="ad-label">Ad slot</span>
+          <strong>Between Sections</strong>
+          <p>Mid-page monetization placement optimized for newsletter sponsors and exchange promos.</p>
+        </article>
+      </section>
+
+      <section id="tools" class="container">
+        <article class="glass-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Quick Tools Grid</p>
+              <h2>SEO-friendly calculator pages built for repeat visits</h2>
+            </div>
+          </div>
+          <div class="tools-grid tool-link-grid">
+            <a class="tool-link-card" href="profit-calculator.html">
+              <span class="tool-link-kicker">Calculator</span>
+              <h3>Profit Calculator</h3>
+              <p>Measure profit, loss, ROI, and INR/USD outcomes for crypto trades.</p>
+            </a>
+            <a class="tool-link-card" href="sip-calculator.html">
+              <span class="tool-link-kicker">Calculator</span>
+              <h3>SIP Calculator</h3>
+              <p>Project recurring crypto investments with return assumptions over time.</p>
+            </a>
+            <a class="tool-link-card" href="converter.html">
+              <span class="tool-link-kicker">Converter</span>
+              <h3>Converter</h3>
+              <p>Convert INR, USD, BTC, ETH, and a selected crypto asset using live rates.</p>
+            </a>
+            <a class="tool-link-card" href="roi-calculator.html">
+              <span class="tool-link-kicker">Calculator</span>
+              <h3>ROI Calculator</h3>
+              <p>Estimate ROI and CAGR across crypto positions and holding periods.</p>
+            </a>
+            <a class="tool-link-card" href="average-buy-calculator.html">
+              <span class="tool-link-kicker">Calculator</span>
+              <h3>Average Buy Calculator</h3>
+              <p>Blend multiple entries and understand your weighted average buy price.</p>
+            </a>
+            <a class="tool-link-card" href="risk-management.html">
+              <span class="tool-link-kicker">Risk</span>
+              <h3>Risk Management Center</h3>
+              <p>Plan position size, reward ratios, daily loss limits, and realistic goal growth.</p>
+            </a>
+            <a class="tool-link-card" href="paper-trading.html">
+              <span class="tool-link-kicker">Simulator</span>
+              <h3>Paper Trading Simulator</h3>
+              <p>Practice with virtual capital, track progress, and build trading discipline safely.</p>
+            </a>
+            <a class="tool-link-card" href="ai-trading.html">
+              <span class="tool-link-kicker">Assistant</span>
+              <h3>AI Trading Assistant</h3>
+              <p>Get rules-based educational trade paths, market scans, and risk-aware planning ideas.</p>
+            </a>
+            <a class="tool-link-card" href="paper-trading.html#challenge">
+              <span class="tool-link-kicker">Challenge</span>
+              <h3>Goal Challenge Mode</h3>
+              <p>Take on ₹100 to ₹1000 or ₹1000 to ₹10,000 style paper trading challenges.</p>
             </a>
           </div>
         </article>
-
-        <div class="top-recommendations">
-          <div class="top-recommendations-header">
-            <span class="recommendation-kicker">Top 3 Ranked Coins</span>
-            <p id="distributionSuggestion" class="distribution-suggestion">Distribution suggestion will appear here.</p>
-          </div>
-          <div id="topRecommendationsList" class="top-recommendations-list">
-            <p class="empty-state recommendation-empty">No recommendations available yet.</p>
-          </div>
-        </div>
-      </div>
-      <p class="risk-note">Crypto investments are risky. This is not financial advice.</p>
-    </section>
-
-    <section class="dashboard-card tips-panel">
-      <div class="card-header tips-header">
-        <div>
-          <p class="eyebrow">Smart Pro Tips</p>
-          <h2>Live market guidance</h2>
-        </div>
-      </div>
-      <div class="tips-body">
-        <p id="marketTip" class="tip-message">Scanning market conditions...</p>
-        <p id="portfolioTip" class="tip-message">Portfolio guidance will appear once your holdings are added.</p>
-      </div>
-    </section>
-
-    <section class="dashboard-card panel">
-      <div class="card-header toolbar">
-        <div>
-          <p class="eyebrow">Market</p>
-          <h2>Live Crypto Market</h2>
-        </div>
-        <div class="search-wrap">
-          <label class="sr-only" for="searchInput">Search coins</label>
-          <input
-            id="searchInput"
-            type="search"
-            placeholder="Search by coin name or symbol"
-            autocomplete="off"
-          >
-        </div>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Coin</th>
-              <th>Symbol</th>
-              <th>Price (USD)</th>
-              <th>24h Change</th>
-              <th>Signal</th>
-              <th>Portfolio</th>
-            </tr>
-          </thead>
-          <tbody id="cryptoTableBody" class="loading-table">
-            <tr>
-              <td colspan="6" class="empty-state">Loading market data...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="dashboard-grid">
-      <section class="dashboard-card portfolio-panel">
-        <div class="card-header portfolio-header">
-          <div>
-            <p class="eyebrow">Portfolio</p>
-            <h2>My Portfolio</h2>
-          </div>
-          <div class="portfolio-total-wrap">
-            <span class="portfolio-total-label">Total Value</span>
-            <strong id="portfolioTotal" class="portfolio-total">$0.00</strong>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Coin</th>
-                <th>Buy Price</th>
-                <th>Amount Owned</th>
-                <th>Invested</th>
-                <th>Current Value</th>
-                <th>P/L</th>
-              </tr>
-            </thead>
-            <tbody id="portfolioTableBody">
-              <tr>
-                <td colspan="6" class="empty-state">Your portfolio is empty. Add coins from the table above.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="portfolio-summary">
-          <div class="portfolio-summary-item">
-            <span>Total Invested</span>
-            <strong id="portfolioInvested">$0.00</strong>
-          </div>
-          <div class="portfolio-summary-item">
-            <span>Total Profit / Loss</span>
-            <strong id="portfolioProfitLoss">$0.00 (0.00%)</strong>
-          </div>
-        </div>
-        <div class="affiliate-actions portfolio-affiliate">
-          <a
-            id="portfolioAffiliateLink"
-            class="affiliate-button secondary-affiliate-button"
-            href="https://invite.coindcx.com/61707419"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Buy via CoinDCX
-          </a>
-        </div>
       </section>
 
-      <section class="dashboard-card chart-panel">
-        <div class="card-header chart-header">
+      <section class="container">
+        <article class="glass-card growth-cta-card">
           <div>
-            <p class="eyebrow">Chart</p>
-            <h2 id="chartTitle">Select a coin to view its price chart</h2>
+            <p class="eyebrow">Trade Education</p>
+            <h2>Learn Risk First. Trade Smarter.</h2>
+            <p class="muted-copy">
+              Build position sizing habits, practice in paper mode, and use structured planning before risking real capital.
+            </p>
           </div>
-          <p id="chartStatus" class="chart-status">Click any table row to load historical pricing.</p>
-        </div>
-        <div id="chartWrap" class="chart-wrap">
-          <div class="chart-loader">
-            <span class="loader-dot"></span>
-            <span class="loader-dot"></span>
-            <span class="loader-dot"></span>
+          <div class="hero-actions">
+            <a class="button button-primary" href="risk-management.html">Open Risk Center</a>
+            <a class="button button-secondary" href="paper-trading.html">Start Paper Trading</a>
           </div>
-          <canvas id="priceChart"></canvas>
-        </div>
-        <div class="affiliate-actions chart-affiliate">
-          <a
-            id="chartAffiliateLink"
-            class="affiliate-button secondary-affiliate-button"
-            href="https://invite.coindcx.com/61707419"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Start investing in this coin (Recommended)
-          </a>
-        </div>
+        </article>
       </section>
-    </section>
-  </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js"></script>
+      <section id="portfolio" class="container portfolio-section">
+        <article class="glass-card portfolio-card">
+          <div class="section-head portfolio-head">
+            <div>
+              <p class="eyebrow">Portfolio</p>
+              <h2>Saved holdings and performance snapshot</h2>
+            </div>
+            <div class="portfolio-summary-inline">
+              <span>Total Value</span>
+              <strong id="portfolioTotal">$0.00</strong>
+            </div>
+          </div>
+          <div class="portfolio-summary-grid">
+            <div class="summary-box">
+              <span>Total Invested</span>
+              <strong id="portfolioInvested">$0.00</strong>
+            </div>
+            <div class="summary-box">
+              <span>Total Profit / Loss</span>
+              <strong id="portfolioProfitLoss">$0.00 (0.00%)</strong>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Coin</th>
+                  <th>Buy Price</th>
+                  <th>Amount</th>
+                  <th>Invested</th>
+                  <th>Current Value</th>
+                  <th>P/L</th>
+                </tr>
+              </thead>
+              <tbody id="portfolioTableBody">
+                <tr>
+                  <td colspan="6" class="empty-state">Your portfolio is empty. Add coins from the market table.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="glass-card chart-card">
+          <div class="section-head chart-head">
+            <div>
+              <p class="eyebrow">Coin Chart</p>
+              <h2 id="chartTitle">Select a coin to view its price chart</h2>
+            </div>
+            <p id="chartStatus" class="muted-copy">Tap a coin row to load a 7-day price chart.</p>
+          </div>
+          <div id="chartWrap" class="chart-wrap">
+            <div class="chart-loader">
+              <span class="loader-dot"></span>
+              <span class="loader-dot"></span>
+              <span class="loader-dot"></span>
+            </div>
+            <canvas id="priceChart" aria-label="Selected coin price chart"></canvas>
+          </div>
+          <a id="chartAffiliateLink" class="button button-secondary affiliate-button chart-link" href="https://invite.coindcx.com/61707419" target="_blank" rel="noopener noreferrer">
+            Start investing in this coin
+          </a>
+        </article>
+      </section>
+
+      <section id="news" class="container">
+        <article class="glass-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Latest Crypto News</p>
+              <h2>Fresh headlines for daily visitors</h2>
+            </div>
+          </div>
+          <div id="newsFeed" class="news-grid">
+            <p class="empty-state">News will load when this section becomes visible.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="container">
+        <article class="glass-card signup-card">
+          <div>
+            <p class="eyebrow">Email Signup CTA</p>
+            <h2>Get one clean crypto update each week</h2>
+            <p class="muted-copy">
+              Save email capture locally for now and connect your ESP later for production campaigns.
+            </p>
+          </div>
+          <form id="signupForm" class="signup-form">
+            <label class="sr-only" for="emailInput">Email address</label>
+            <input id="emailInput" type="email" placeholder="Enter your email address" required>
+            <button class="button button-primary" type="submit">Join Free</button>
+          </form>
+          <p id="signupMessage" class="muted-copy">No spam. Just high-signal market updates and useful tools.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <strong>CryptoAI V2</strong>
+          <p>Live crypto prices, sentiment, trending coins, calculators, and portfolio tools.</p>
+        </div>
+        <div class="footer-links">
+          <a href="profit-calculator.html">Profit Calculator</a>
+          <a href="sip-calculator.html">SIP Calculator</a>
+          <a href="converter.html">Converter</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="average-buy-calculator.html">Average Buy Calculator</a>
+          <a href="risk-management.html">Risk Management Center</a>
+          <a href="paper-trading.html">Paper Trading Simulator</a>
+          <a href="ai-trading.html">AI Trading Assistant</a>
+        </div>
+      </div>
+    </footer>
+
+    <button id="mobileStickyAd" class="mobile-sticky-ad" type="button" aria-label="Advertisement placeholder">
+      <span class="ad-label">Ad slot</span>
+      <strong>Mobile Sticky Footer</strong>
+    </button>
+  </div>
+
+  <script src="script.js" defer></script>
 </body>
 </html>

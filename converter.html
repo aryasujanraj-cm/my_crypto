@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Converter | INR, USD, BTC, ETH and Coin Conversion</title>
+  <meta name="description" content="Convert INR, USD, BTC, ETH, and a selected crypto asset using live market rates with the CryptoAI converter.">
+  <meta name="keywords" content="crypto converter, btc converter, eth converter, usd to crypto, inr to crypto">
+  <meta name="theme-color" content="#070b16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="converter">
+  <div class="site-shell">
+    <div class="background-grid"></div>
+    <div class="background-orb background-orb-left"></div>
+    <div class="background-orb background-orb-right"></div>
+
+    <div id="trustModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="trustModalTitle">
+      <div class="modal-card">
+        <p class="eyebrow">Important Notice</p>
+        <h2 id="trustModalTitle">Risk Notice &amp; Terms</h2>
+        <ul class="modal-list">
+          <li>Crypto markets are risky.</li>
+          <li>Losses may occur.</li>
+          <li>No guaranteed profits.</li>
+          <li>Information only.</li>
+          <li>Users are responsible for decisions.</li>
+        </ul>
+        <div class="modal-actions">
+          <button id="acceptRiskButton" class="button button-primary" type="button">Accept &amp; Continue</button>
+          <button id="exitRiskButton" class="button button-secondary" type="button">Exit</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Primary">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>
+            <strong class="brand-name">CryptoAI V2</strong>
+            <span class="brand-tagline">Prices, tools, watchlists, and daily signals</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html#market">Prices</a>
+          <a href="index.html#tools">Tools</a>
+          <a href="index.html#news">News</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="calculator-page-shell">
+      <section class="container">
+        <article class="glass-card page-hero">
+          <p class="eyebrow">Converter</p>
+          <h1>Convert INR, USD, BTC, ETH, and a selected crypto</h1>
+          <p>Use live market rates to convert between fiat and major crypto assets, including a selected coin from the market list.</p>
+        </article>
+      </section>
+
+      <section class="container tool-page-grid">
+        <article class="glass-card calculator-card">
+          <form id="toolForm" class="calculator-form">
+            <label>Amount
+              <input name="amount" type="number" min="0" step="any" placeholder="1000" required>
+            </label>
+            <label>From Asset
+              <select name="fromAsset">
+                <option value="USD">USD</option>
+                <option value="INR">INR</option>
+                <option value="BTC">BTC</option>
+                <option value="ETH">ETH</option>
+                <option value="selected">Selected Coin</option>
+              </select>
+            </label>
+            <label>Selected Coin
+              <select id="selectedCoin" name="selectedCoin"></select>
+            </label>
+            <p id="currentCoinPrice" class="muted-copy">Loading live selected coin price...</p>
+            <button class="button button-primary" type="submit">Convert</button>
+          </form>
+        </article>
+
+        <aside class="glass-card tool-side-card">
+          <div class="result-panel">
+            <div class="result-box"><span>USD Value</span><strong id="converterUsdValue">$0.00</strong></div>
+            <div class="result-box"><span>INR Value</span><strong id="converterInrValue">₹0.00</strong></div>
+            <div class="result-box"><span>BTC Equivalent</span><strong id="converterBtcValue">0 BTC</strong></div>
+            <div class="result-box"><span>ETH Equivalent</span><strong id="converterEthValue">0 ETH</strong></div>
+            <div class="result-box"><span>Selected Coin Equivalent</span><strong id="converterCoinValue">0</strong></div>
+          </div>
+          <div class="link-list">
+            <a href="profit-calculator.html">Open Profit Calculator</a>
+            <a href="roi-calculator.html">Open ROI Calculator</a>
+            <a href="index.html">Back to Homepage</a>
+            <a id="lastViewedLink" href="index.html#portfolio">View last viewed coin</a>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <strong>CryptoAI V2</strong>
+          <p>Live crypto prices, sentiment, trending coins, calculators, and portfolio tools.</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Homepage</a>
+          <a href="profit-calculator.html">Profit Calculator</a>
+          <a href="average-buy-calculator.html">Average Buy Calculator</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="tool-pages.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Risk Management Center | Position Size, Reward Ratio, Daily Loss & Goal Growth</title>
+  <meta name="description" content="Use CryptoAI risk management tools for position sizing, risk reward planning, daily loss limits, and realistic crypto growth goals.">
+  <meta name="keywords" content="risk management crypto, position size calculator, risk reward calculator, daily loss limit, crypto goal calculator">
+  <meta name="theme-color" content="#070b16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="risk-management">
+  <div class="site-shell">
+    <div class="background-grid"></div>
+    <div class="background-orb background-orb-left"></div>
+    <div class="background-orb background-orb-right"></div>
+    <div id="trustModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="trustModalTitle">
+      <div class="modal-card">
+        <p class="eyebrow">Important Notice</p>
+        <h2 id="trustModalTitle">Risk Notice &amp; Terms</h2>
+        <ul class="modal-list">
+          <li>Crypto markets are risky.</li>
+          <li>Losses may occur.</li>
+          <li>No guaranteed profits.</li>
+          <li>Information only.</li>
+          <li>Users are responsible for decisions.</li>
+        </ul>
+        <div class="modal-actions">
+          <button id="acceptRiskButton" class="button button-primary" type="button">Accept &amp; Continue</button>
+          <button id="exitRiskButton" class="button button-secondary" type="button">Exit</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Primary">
+        <a class="brand" href="index.html">
+          <span class="brand-mark"></span>
+          <span>
+            <strong class="brand-name">CryptoAI V2</strong>
+            <span class="brand-tagline">Prices, tools, watchlists, and daily signals</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="paper-trading.html">Simulator</a>
+          <a href="ai-trading.html">AI Assistant</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="calculator-page-shell">
+      <section class="container">
+        <article class="glass-card page-hero">
+          <p class="eyebrow">Risk Management Center</p>
+          <h1>Build discipline before you chase returns</h1>
+          <p>Plan position size, reward ratios, daily drawdown limits, and realistic account growth targets using reusable risk-first tools.</p>
+        </article>
+      </section>
+
+      <section class="container">
+        <div class="disclaimer-banner">
+          Educational tools only. Not financial advice. No guaranteed returns. User responsible for decisions.
+        </div>
+      </section>
+
+      <section class="container two-column">
+        <article class="glass-card calculator-card">
+          <h2 class="section-card-title">Position Size Calculator</h2>
+          <form id="positionSizeForm" class="calculator-form">
+            <label>Account Balance
+              <input id="accountBalance" data-risk-input type="number" min="0" step="any" placeholder="1000">
+            </label>
+            <label>Risk % Per Trade
+              <input id="riskPercent" data-risk-input type="number" min="0" step="any" placeholder="1">
+            </label>
+            <label>Entry Price
+              <input id="entryPrice" data-risk-input type="number" min="0" step="any" placeholder="100">
+            </label>
+            <label>Stop Loss Price
+              <input id="stopLossPrice" data-risk-input type="number" min="0" step="any" placeholder="95">
+            </label>
+          </form>
+          <div class="mini-grid">
+            <div class="result-box"><span>Max Capital To Use</span><strong id="positionCapitalResult">₹0.00</strong></div>
+            <div class="result-box"><span>Quantity To Buy</span><strong id="positionQuantityResult">0</strong></div>
+            <div class="result-box"><span>Max Loss Amount</span><strong id="positionLossResult">₹0.00</strong></div>
+          </div>
+        </article>
+
+        <article class="glass-card calculator-card">
+          <h2 class="section-card-title">Risk / Reward Calculator</h2>
+          <form id="riskRewardForm" class="calculator-form">
+            <label>Entry
+              <input id="rrEntry" data-risk-input type="number" min="0" step="any" placeholder="100">
+            </label>
+            <label>Stop Loss
+              <input id="rrStopLoss" data-risk-input type="number" min="0" step="any" placeholder="95">
+            </label>
+            <label>Target
+              <input id="rrTarget" data-risk-input type="number" min="0" step="any" placeholder="115">
+            </label>
+            <label>Quantity
+              <input id="rrQuantity" data-risk-input type="number" min="0" step="any" placeholder="1">
+            </label>
+          </form>
+          <div class="mini-grid">
+            <div class="result-box"><span>Risk / Reward Ratio</span><strong id="rrRatioResult">N/A</strong></div>
+            <div class="result-box"><span>Expected Profit</span><strong id="rrProfitResult">$0.00</strong></div>
+            <div class="result-box"><span>Expected Loss</span><strong id="rrLossResult">$0.00</strong></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="container two-column">
+        <article class="glass-card calculator-card">
+          <h2 class="section-card-title">Daily Loss Limit Planner</h2>
+          <form id="dailyLossForm" class="calculator-form">
+            <label>Account Size
+              <input id="dailyAccountSize" data-risk-input type="number" min="0" step="any" placeholder="5000">
+            </label>
+            <label>Max Daily Loss %
+              <input id="maxDailyLossPercent" data-risk-input type="number" min="0" step="any" placeholder="2">
+            </label>
+          </form>
+          <div class="mini-grid">
+            <div class="result-box"><span>Stop Trading Level</span><strong id="dailyStopLevelResult">₹0.00</strong></div>
+            <div class="result-box"><span>Recommended Max Trades / Day</span><strong id="dailyTradesResult">0</strong></div>
+          </div>
+        </article>
+
+        <article class="glass-card calculator-card" id="goal-growth">
+          <h2 class="section-card-title">Goal Growth Calculator</h2>
+          <form id="goalGrowthForm" class="calculator-form">
+            <label>Start Amount
+              <input id="goalStartAmount" data-risk-input type="number" min="0" step="any" placeholder="100">
+            </label>
+            <label>Target Amount
+              <input id="goalTargetAmount" data-risk-input type="number" min="0" step="any" placeholder="1000">
+            </label>
+          </form>
+          <div class="mini-grid">
+            <div class="result-box"><span>Low Risk Path</span><strong id="goalLowRiskResult">0 months</strong></div>
+            <div class="result-box"><span>Medium Risk Path</span><strong id="goalMediumRiskResult">0 months</strong></div>
+            <div class="result-box"><span>High Risk Path</span><strong id="goalHighRiskResult">0 months</strong></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="container">
+        <article class="glass-card tool-side-card">
+          <h2 class="section-card-title">Recent Viewed Assets</h2>
+          <div id="recentAssetsList" class="token-list">
+            <span class="empty-inline">No recent assets viewed yet.</span>
+          </div>
+          <div class="link-list" style="margin-top: 1rem;">
+            <a href="paper-trading.html">Open Paper Trading Simulator</a>
+            <a href="ai-trading.html">Open AI Trading Assistant</a>
+            <a id="lastViewedLink" href="index.html#portfolio">View last viewed homepage coin</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <strong>CryptoAI V2</strong>
+          <p>Live crypto prices, sentiment, trading education, calculators, and simulator tools.</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Homepage</a>
+          <a href="paper-trading.html">Paper Trading</a>
+          <a href="ai-trading.html">AI Trading Assistant</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="advanced-growth.js" defer></script>
+</body>
+</html>
